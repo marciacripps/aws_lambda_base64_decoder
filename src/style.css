@@ -19,7 +19,7 @@ body {
   padding: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: none; /* Ensure no default body background color */
+  background: none; 
 }
 
 #app {

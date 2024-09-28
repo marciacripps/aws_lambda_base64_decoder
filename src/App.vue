@@ -39,8 +39,8 @@
 export default {
   data() {
     return {
-      base64Data: "", // Stores the input from the user
-      decodedData: null, // Will store the decoded data from the API response
+      base64Data: "", 
+      decodedData: null, 
     };
   },
   methods: {

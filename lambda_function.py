@@ -2,12 +2,10 @@ import base64
 import json
 
 def lambda_handler(event, context):
-    print("Received event:", event)  # Log the incoming event for debugging
+    print("Received event:", event) 
     
-    # First, check if the event contains 'base64' directly
     if 'base64' in event:
         base64_string = event['base64']
-    # Otherwise, expect the base64 string inside the event body (for API Gateway requests)
     elif 'body' in event:
         try:
             body = json.loads(event['body'])
@@ -41,7 +39,7 @@ def lambda_handler(event, context):
                 })
             }
         except Exception as e:
-            print("Error decoding Base64:", str(e))  # Log decoding error
+            print("Error decoding Base64:", str(e))  
             return {
                 'statusCode': 400,
                 'headers': {
@@ -54,7 +52,7 @@ def lambda_handler(event, context):
                 })
             }
     else:
-        print("No Base64 string found")  # Log if the input is missing
+        print("No Base64 string found")
         return {
             'statusCode': 400,
             'headers': {
