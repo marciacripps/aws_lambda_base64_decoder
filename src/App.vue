@@ -1,31 +1,36 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-    <!-- Title -->
-    <h1 class="text-3xl font-bold text-blue-600 mb-8">Base64 Decoder</h1>
+  <div class="min-h-screen w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 flex flex-col items-center justify-center py-12">
+    <!-- Title and Description -->
+    <div class="text-center text-white mb-8 px-4">
+      <h2 class="text-4xl font-extrabold mb-4">Do you have to deal with Base64 format?</h2>
+      <p class="text-lg mb-2">Use my super handy online tool to decode your data.</p>
+      <p class="text-lg font-semibold">Decode from Base64 format</p>
+      <p class="text-md">Simply enter your data like "SGVsbG8gV29ybGQ=" and then push the decode button.</p>
+    </div>
 
     <!-- Form -->
-    <form @submit.prevent="decodeBase64" class="bg-white p-6 rounded shadow-lg max-w-lg w-full">
+    <form @submit.prevent="decodeBase64" class="bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full">
       <!-- Input field -->
-      <input
+      <textarea
         v-model="base64Data"
-        type="text"
-        placeholder="Enter Base64"
-        class="border border-gray-300 p-3 w-full rounded mb-4"
-      />
+        rows="8"
+        placeholder="Type or Paste Your Base64 Here"
+        class="border border-gray-300 p-4 w-full rounded-lg mb-6 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      ></textarea>
 
       <!-- Submit button -->
       <button
         type="submit"
-        class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full"
+        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300"
       >
         Decode
       </button>
     </form>
 
     <!-- Decoded Data -->
-    <div v-if="decodedData" class="mt-8 bg-white p-6 rounded shadow-lg max-w-lg w-full">
-      <h2 class="text-xl font-semibold mb-2">Decoded Data:</h2>
-      <p class="bg-blue-50 p-4 rounded text-black">{{ decodedData }}</p>
+    <div v-if="decodedData" class="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-600">Decoded Data:</h2>
+      <pre class="bg-gray-100 p-6 rounded-lg text-gray-800 overflow-auto">{{ decodedData }}</pre>
     </div>
   </div>
 </template>
@@ -40,17 +45,12 @@ export default {
   },
   methods: {
     async decodeBase64() {
-      console.log("Input Base64 data:", this.base64Data);
-
       if (!this.base64Data) {
-        console.warn("No Base64 data entered.");
         this.decodedData = "Please enter a Base64 encoded string.";
         return;
       }
 
-      // Access the API URL from the .env file using import.meta.env.VITE_API_URL
       const apiUrl = import.meta.env.VITE_API_URL;
-      console.log("Sending request to:", apiUrl);
 
       try {
         const response = await fetch(apiUrl, {
@@ -58,30 +58,18 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ base64: this.base64Data }),  // Sending the Base64 data
+          body: JSON.stringify({ base64: this.base64Data }),
         });
 
-        console.log("Raw response from API Gateway:", response);
-
         if (!response.ok) {
-          const errorData = await response.text();  // Log the error response body for further insight
-          console.error("Failed to fetch:", response.statusText, errorData);
+          const errorData = await response.text();
           this.decodedData = `Error: ${response.statusText} - ${errorData}`;
           return;
         }
 
         const responseData = await response.json();
-        console.log("Parsed response data:", responseData);
-
-        if (responseData.decoded) {
-          this.decodedData = responseData.decoded;
-        } else {
-          console.warn("No decoded data found in the response.");
-          this.decodedData = "Error: No decoded data found.";
-        }
-
+        this.decodedData = responseData.decoded || "Error: No decoded data found.";
       } catch (error) {
-        console.error("Error during fetch:", error);
         this.decodedData = `Error: ${error.message}`;
       }
     },
@@ -90,5 +78,10 @@ export default {
 </script>
 
 <style>
-
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>
