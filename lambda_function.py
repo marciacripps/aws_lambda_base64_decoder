@@ -2,10 +2,11 @@ import base64
 import json
 
 def lambda_handler(event, context):
-    print("Received event:", event) 
+    print("Received event:", event)  
     
     if 'base64' in event:
         base64_string = event['base64']
+
     elif 'body' in event:
         try:
             body = json.loads(event['body'])
@@ -52,7 +53,7 @@ def lambda_handler(event, context):
                 })
             }
     else:
-        print("No Base64 string found")
+        print("No Base64 string found") 
         return {
             'statusCode': 400,
             'headers': {
