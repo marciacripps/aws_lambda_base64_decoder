@@ -1,14 +1,6 @@
 # AWS Lambda Base64 Decoder
 
-This project is a simple Base64 Decoder web app built using **Vite (Vue.js)** for the frontend, and **AWS Lambda** and **API Gateway** for the backend. The app allows users to input a Base64 encoded string, decode it using an AWS Lambda function, and display the decoded output on the frontend. The project is deployed on **Netlify**.
-
-## Project Overview
-
-- **Frontend**: Vite (Vue.js), Tailwind CSS
-- **Backend**: AWS Lambda (Python), API Gateway
-- **Hosting**: Netlify for frontend, AWS Lambda and API Gateway for backend
-- **Build Tool**: Vite
-- **Environment Variables**: Managed via Netlify for frontend
+This project is a simple Base64 Decoder web app built using **Vite (Vue.js)** for the frontend, and **AWS Lambda** and **API Gateway** for the backend. The app allows users to input a Base64 encoded string, decode it using an AWS Lambda function, and display the decoded output on the frontend. The project is deployed on **Netlify** check it out here: https://marciabase64decoder.netlify.app/
 
 ## Features
 
