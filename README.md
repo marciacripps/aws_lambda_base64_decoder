@@ -4,7 +4,7 @@ This project is a simple Base64 Decoder web app built using **Vite (Vue.js)** fo
 
 ## Project Overview
 
-- **Frontend**: Vite (Vue.js)
+- **Frontend**: Vite (Vue.js), Tailwind CSS
 - **Backend**: AWS Lambda (Python), API Gateway
 - **Hosting**: Netlify for frontend, AWS Lambda and API Gateway for backend
 - **Build Tool**: Vite
